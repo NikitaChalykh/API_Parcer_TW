@@ -9,6 +9,10 @@ class Article(models.Model):
     article = models.PositiveIntegerField(
         verbose_name='Артикул'
     )
+    link = models.CharField(
+        verbose_name='Ссылка на товар на сайте',
+        max_length=200
+    )
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
