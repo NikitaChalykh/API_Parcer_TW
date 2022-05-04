@@ -1,11 +1,34 @@
-from rest_framework import viewsets, mixins
+from rest_framework import mixins, permissions, status, viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
-from cards.models import Article, Card
-from .serializers import ArticleSerializer, CardSerializer
+from cards.models import Article, Card, User
+
 from .filters import CardFilterBackend
+from .serializers import ArticleSerializer, CardSerializer, UserSerializer
+
+
+class UserViewSet(
+    mixins.CreateModelMixin,
+    viewsets.GenericViewSet
+):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    pagination_class = None
+    permission_classes = (permissions.AllowAny,)
+
+    @action(
+        detail=False,
+        methods=['GET'],
+        permission_classes=(permissions.IsAuthenticated,)
+    )
+    def me(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class ArticleViewSet(
+    mixins.RetrieveModelMixin,
     mixins.ListModelMixin,
     mixins.CreateModelMixin,
     mixins.DestroyModelMixin,

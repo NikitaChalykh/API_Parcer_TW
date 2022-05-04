@@ -5,6 +5,7 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
+# настраиваем работу swagger и redoc
 schema_view = get_schema_view(
     openapi.Info(
         title="Parcer API",
@@ -22,6 +23,7 @@ urlpatterns = [
     path('api/', include('api.urls', namespace='api'))
 ]
 
+# прописываем пути для swagger и redoc
 urlpatterns += [
     url(r'^swagger(?P<format>\.json|\.yaml)$',
         schema_view.without_ui(cache_timeout=0), name='schema-json'),

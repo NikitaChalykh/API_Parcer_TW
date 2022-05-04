@@ -5,6 +5,7 @@ User = get_user_model()
 
 
 class Article(models.Model):
+    '''Модель артикулов для парсинга'''
     article = models.PositiveIntegerField(
         verbose_name='Артикул'
     )
@@ -28,6 +29,7 @@ class Article(models.Model):
 
 
 class Card(models.Model):
+    '''Модель карточек для артикулов'''
     article = models.ForeignKey(
         Article,
         on_delete=models.CASCADE,

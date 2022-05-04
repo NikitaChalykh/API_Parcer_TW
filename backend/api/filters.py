@@ -1,32 +1,50 @@
+import datetime
+
 from rest_framework import filters
+from rest_framework.compat import coreapi, coreschema
 
 
 class CardFilterBackend(filters.BaseFilterBackend):
 
+    def get_schema_fields(self, view):
+        '''Настривает отображение GET параметров'''
+        return [
+            coreapi.Field(
+                name='from_datetime',
+                location='query',
+                required=False,
+                schema=coreschema.String(description='2018-01-31-18-01')
+            ),
+            coreapi.Field(
+                name='to_datetime',
+                location='query',
+                required=False,
+                schema=coreschema.String(description='2018-01-31-20-01')
+            ),
+            coreapi.Field(
+                name='interval',
+                location='query',
+                required=False,
+                schema=coreschema.String(description='12')
+            )]
+
     def filter_queryset(self, request, queryset, view):
-        # is_favorited = request.query_params.get('is_favorited')
-        # is_in_shopping_cart = request.query_params.get(
-        #     'is_in_shopping_cart'
-        # )
-        # recipes_author = request.query_params.get('author')
-        # recipes_tags = request.query_params.getlist('tags')
-        # review_queryset = queryset
-        # if is_favorited == '1':
-        #     review_queryset = review_queryset.filter(
-        #         favorite_recipes__user=request.user
-        #     )
-        # if is_in_shopping_cart == '1':
-        #     review_queryset = review_queryset.filter(
-        #         shopping_list_recipes__user=request.user
-        #     )
-        # if recipes_author is not None:
-        #     review_queryset = review_queryset.filter(
-        #         author=recipes_author
-        #     )
-        # if recipes_tags:
-        #     regular_tags = '|'.join(recipes_tags)
-        #     review_queryset = review_queryset.filter(
-        #         tags__slug__regex=regular_tags
-        #     )
-        # return review_queryset.distinct()
-        pass
+        '''Фильтр для работы с GET параметрами в запросе'''
+        datetime_format = '%Y-%m-%d-%H-%M'
+        from_datetime = request.query_params.get('from_datetime')
+        to_datetime = request.query_params.get('to_datetime')
+        interval = request.query_params.get('interval')
+        if (from_datetime and to_datetime) is not None:
+            queryset = queryset.filter(
+                date__range=(
+                    datetime.strptime(from_datetime, datetime_format),
+                    datetime.strptime(to_datetime, datetime_format)
+                )
+            )
+        elif from_datetime is not None:
+            queryset = queryset.filter(
+                date__gte=datetime.strptime(from_datetime, datetime_format)
+            )
+        if interval is not None:
+            queryset = queryset[::int(interval)]
+        return queryset
