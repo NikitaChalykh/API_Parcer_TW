@@ -7,6 +7,7 @@ User = get_user_model()
 class Article(models.Model):
     '''Модель артикулов для парсинга'''
     article = models.PositiveIntegerField(
+        unique=True,
         verbose_name='Артикул'
     )
     user = models.ForeignKey(
