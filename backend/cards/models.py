@@ -47,10 +47,10 @@ class Card(models.Model):
         verbose_name='Пользователь'
     )
     discont_value = models.PositiveIntegerField(
-        verbose_name='Цена'
+        verbose_name='Цена со скидкой'
     )
     value = models.PositiveIntegerField(
-        verbose_name='Цена со скидкой'
+        verbose_name='Полная стоимость'
     )
     brand = models.CharField(
         verbose_name='Бренд',
