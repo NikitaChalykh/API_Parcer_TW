@@ -9,10 +9,6 @@ class Article(models.Model):
     article = models.PositiveIntegerField(
         verbose_name='Артикул'
     )
-    link = models.CharField(
-        verbose_name='Ссылка на товар на сайте',
-        max_length=200
-    )
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -50,23 +46,19 @@ class Card(models.Model):
         related_name='cards',
         verbose_name='Пользователь'
     )
-    value = models.PositiveIntegerField(
+    discont_value = models.PositiveIntegerField(
         verbose_name='Цена'
     )
-    discont_value = models.PositiveIntegerField(
+    value = models.PositiveIntegerField(
         verbose_name='Цена со скидкой'
-    )
-    date = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name='Дата создания статьи'
     )
     brand = models.CharField(
         verbose_name='Бренд',
         max_length=200
     )
-    supplier = models.CharField(
-        verbose_name='Поставщик',
-        max_length=200
+    date = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='Дата создания статьи'
     )
 
     class Meta:

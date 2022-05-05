@@ -18,8 +18,10 @@ class CardAdmin(admin.ModelAdmin):
         'article',
         'name',
         'user',
+        'discont_value',
+        'value',
         'brand',
-        'supplier'
+        'date'
     )
     list_filter = ('article', 'user')
     empty_value_display = '-пусто-'
