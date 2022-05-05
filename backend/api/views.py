@@ -35,13 +35,17 @@ class ArticleViewSet(
     mixins.DestroyModelMixin,
     viewsets.GenericViewSet
 ):
-    queryset = Article.objects.select_related('user').filter(
-        user=self.request.user
-    )
+    queryset = Article.objects.select_related('user').all()
     serializer_class = ArticleSerializer
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+    def get_queryset(self):
+        new_queryset = self.queryset.filter(
+            user=self.request.user
+        )
+        return new_queryset
 
 
 class CardViewSet(
@@ -55,7 +59,7 @@ class CardViewSet(
     ).all()
     serializer_class = CardSerializer
     filter_backends = (CardFilterBackend,)
-    
+
     def get_queryset(self):
         article_id = self.kwargs.get("article_id")
         article = get_object_or_404(
@@ -66,4 +70,3 @@ class CardViewSet(
             article=article
         )
         return new_queryset
-    
