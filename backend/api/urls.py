@@ -1,15 +1,15 @@
 from django.urls import include, path
 from rest_framework import routers
 
-from .views import ArticleViewSet, CardViewSet, UserViewSet, get_parced_data
+from .views import CardViewSet, ProductViewSet, UserViewSet, get_parced_data
 
 app_name = 'api'
 
 router_api = routers.DefaultRouter()
 
-router_api.register('articles', ArticleViewSet)
+router_api.register('products', ProductViewSet)
 router_api.register(
-    r'^articles/(?P<article>\d+)/cards',
+    r'^products/(?P<vendor_code>\d+)/cards',
     CardViewSet
 )
 router_api.register('users', UserViewSet)

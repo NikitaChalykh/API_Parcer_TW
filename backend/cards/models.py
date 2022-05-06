@@ -4,16 +4,16 @@ from django.db import models
 User = get_user_model()
 
 
-class Article(models.Model):
+class Product(models.Model):
     '''Модель артикулов для парсинга'''
-    article_value = models.PositiveIntegerField(
+    vendor_code = models.PositiveIntegerField(
         unique=True,
         verbose_name='Артикул'
     )
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='articles',
+        related_name='products',
         verbose_name='Пользователь'
     )
     date = models.DateTimeField(
@@ -27,18 +27,18 @@ class Article(models.Model):
         ordering = ['date']
 
     def __str__(self):
-        return str(self.article_value)
+        return str(self.vendor_code)
 
 
 class Card(models.Model):
     '''Модель карточек для артикулов'''
-    article = models.ForeignKey(
-        Article,
+    product = models.ForeignKey(
+        Product,
         on_delete=models.CASCADE,
         related_name='cards',
-        verbose_name='Модель артикула'
+        verbose_name='Продукт'
     )
-    article_value = models.PositiveIntegerField(
+    vendor_code = models.PositiveIntegerField(
         verbose_name='Артикул'
     )
     name = models.CharField(
@@ -60,6 +60,10 @@ class Card(models.Model):
     brand = models.CharField(
         max_length=200,
         verbose_name='Бренд'
+    )
+    supplier = models.CharField(
+        max_length=100,
+        verbose_name='Поставщик'
     )
     date = models.DateTimeField(
         auto_now_add=True,

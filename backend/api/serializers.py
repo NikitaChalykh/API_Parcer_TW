@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from cards.models import Article, Card, User
+from cards.models import Card, Product, User
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -23,11 +23,11 @@ class UserSerializer(serializers.ModelSerializer):
         return User.objects.create_user(**validated_data)
 
 
-class ArticleSerializer(serializers.ModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Article
-        fields = ('article_value', 'date')
+        model = Product
+        fields = ('vendor_code', 'date')
 
 
 class CardSerializer(serializers.ModelSerializer):
@@ -35,10 +35,11 @@ class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
         fields = (
-            'article_value',
+            'vendor_code',
             'name',
             'brand',
             'discont_value',
             'value',
+            'supplier',
             'date'
         )
