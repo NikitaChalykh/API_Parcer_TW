@@ -1,10 +1,9 @@
+import requests
+from bs4 import BeautifulSoup
 from django.shortcuts import get_object_or_404
 from rest_framework import mixins, permissions, status, viewsets
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from bs4 import BeautifulSoup
-import requests
 
 from cards.models import Article, Card, User
 

@@ -49,5 +49,4 @@ class CardFilterBackend(filters.BaseFilterBackend):
             )
         if interval is not None:
             queryset = queryset[::int(interval)]
-        print(from_datetime, to_datetime, interval)
         return queryset
