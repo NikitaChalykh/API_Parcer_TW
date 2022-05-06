@@ -5,17 +5,17 @@ from .models import Article, Card
 
 class ArticleAdmin(admin.ModelAdmin):
     list_display = (
-        'article',
+        'article_value',
         'user',
         'date'
     )
-    list_filter = ('article', 'user')
+    list_filter = ('user',)
     empty_value_display = '-пусто-'
 
 
 class CardAdmin(admin.ModelAdmin):
     list_display = (
-        'article',
+        'article_value',
         'name',
         'user',
         'discont_value',
@@ -23,7 +23,7 @@ class CardAdmin(admin.ModelAdmin):
         'brand',
         'date'
     )
-    list_filter = ('article', 'user')
+    list_filter = ('user', 'article_value')
     empty_value_display = '-пусто-'
 
 

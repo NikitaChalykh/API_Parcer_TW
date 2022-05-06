@@ -27,11 +27,18 @@ class ArticleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Article
-        exclude = ('user',)
+        fields = ('article_value', 'date')
 
 
 class CardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Card
-        exclude = ('user', 'article')
+        fields = (
+            'article_value',
+            'name',
+            'brand',
+            'discont_value',
+            'value',
+            'date'
+        )

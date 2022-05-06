@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 from rest_framework import filters
 from rest_framework.compat import coreapi, coreschema
@@ -25,7 +25,9 @@ class CardFilterBackend(filters.BaseFilterBackend):
                 name='interval',
                 location='query',
                 required=False,
-                schema=coreschema.String(description='12')
+                schema=coreschema.String(
+                    description='1, 12 или 24 (одно значение)'
+                )
             )]
 
     def filter_queryset(self, request, queryset, view):
@@ -47,4 +49,5 @@ class CardFilterBackend(filters.BaseFilterBackend):
             )
         if interval is not None:
             queryset = queryset[::int(interval)]
+        print(from_datetime, to_datetime, interval)
         return queryset

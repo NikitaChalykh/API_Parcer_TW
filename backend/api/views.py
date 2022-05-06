@@ -2,6 +2,9 @@ from django.shortcuts import get_object_or_404
 from rest_framework import mixins, permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from bs4 import BeautifulSoup
+import requests
 
 from cards.models import Article, Card, User
 
@@ -37,6 +40,7 @@ class ArticleViewSet(
 ):
     queryset = Article.objects.select_related('user').all()
     serializer_class = ArticleSerializer
+    lookup_field = 'article_value'
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -61,12 +65,74 @@ class CardViewSet(
     filter_backends = (CardFilterBackend,)
 
     def get_queryset(self):
-        article_id = self.kwargs.get("article_id")
+        article = self.kwargs.get("article")
         article = get_object_or_404(
             Article,
-            pk=article_id
+            article_value=article
         )
         new_queryset = self.queryset.filter(
             article=article
         )
         return new_queryset
+
+
+def get_meta_tag(data, symbol):
+    '''Функция для обработки данных из мета-тегов'''
+    data = str(data)
+    new_data_dict = []
+    for i in range(15, len(data) + 1):
+        if data[i] != symbol:
+            new_data_dict.append(data[i])
+        else:
+            break
+    return ''.join(new_data_dict)
+
+
+def get_tag_for_value(data):
+    '''Функция для обработки числовых данных из тегов'''
+    data = str(data)
+    new_data_dict = []
+    for symbol in data:
+        try:
+            int(symbol)
+            new_data_dict.append(symbol)
+        except ValueError:
+            continue
+    return int(''.join(new_data_dict)) * 100
+
+
+def get_card(article):
+    '''Функция для получения данных с сайта по артикулу'''
+    url = 'https://www.wildberries.ru/catalog/' + (
+        str(article) + '/detail.aspx'
+    )
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    article_quote = soup.find('span', id="productNmId")
+    brand_quote = soup.find('meta', itemprop="brand")
+    name_quote = soup.find('meta', itemprop="name")
+    discont_value_quote = soup.find('span', class_="price-block__final-price")
+    value_quote = soup.find(
+        'del', class_="price-block__old-price j-final-saving"
+    )
+    return {
+        'article_value': int(article_quote.text),
+        'brand': get_meta_tag(brand_quote, '"'),
+        'name': get_meta_tag(name_quote, ','),
+        'discont_value': get_tag_for_value(discont_value_quote.text),
+        'value': get_tag_for_value(value_quote.text)
+    }
+
+
+@api_view(['POST'])
+def get_parced_data(request):
+    articles = Article.objects.filter(user=request.user)
+    for article in articles:
+        new_cart = get_card(article.article_value)
+        Card.objects.create(
+            **new_cart, user=request.user, article=article
+        )
+    return Response(
+        'Созданы карточки для отслеживаемых артикулов',
+        status=status.HTTP_201_CREATED
+    )

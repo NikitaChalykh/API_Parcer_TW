@@ -6,7 +6,7 @@ User = get_user_model()
 
 class Article(models.Model):
     '''Модель артикулов для парсинга'''
-    article = models.PositiveIntegerField(
+    article_value = models.PositiveIntegerField(
         unique=True,
         verbose_name='Артикул'
     )
@@ -24,9 +24,10 @@ class Article(models.Model):
     class Meta:
         verbose_name = "Отслеживаемый артикул"
         verbose_name_plural = "Отслеживаемые артикулы"
+        ordering = ['date']
 
     def __str__(self):
-        return self.user
+        return str(self.article_value)
 
 
 class Card(models.Model):
@@ -35,11 +36,14 @@ class Card(models.Model):
         Article,
         on_delete=models.CASCADE,
         related_name='cards',
+        verbose_name='Модель артикула'
+    )
+    article_value = models.PositiveIntegerField(
         verbose_name='Артикул'
     )
     name = models.CharField(
-        verbose_name='Название рецепта',
-        max_length=200
+        max_length=200,
+        verbose_name='Название рецепта'
     )
     user = models.ForeignKey(
         User,
@@ -54,17 +58,18 @@ class Card(models.Model):
         verbose_name='Полная стоимость'
     )
     brand = models.CharField(
-        verbose_name='Бренд',
-        max_length=200
+        max_length=200,
+        verbose_name='Бренд'
     )
     date = models.DateTimeField(
         auto_now_add=True,
-        verbose_name='Дата создания статьи'
+        verbose_name='Дата создания'
     )
 
     class Meta:
         verbose_name = "Карточка товара"
         verbose_name_plural = "Карточки товаров"
+        ordering = ['date']
 
     def __str__(self):
-        return self.article
+        return self.name

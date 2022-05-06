@@ -1,4 +1,5 @@
 asgiref==3.2.10
+beautifulsoup4==4.11.1
 certifi==2021.10.8
 cffi==1.15.0
 charset-normalizer==2.0.12
@@ -8,6 +9,7 @@ cryptography==36.0.2
 defusedxml==0.7.1
 Django==3.1.14
 django-filter==2.4.0
+django-templated-mail==1.1.1
 djangorestframework==3.12.4
 djangorestframework-simplejwt==4.8.0
 djoser==2.1.0
@@ -38,6 +40,7 @@ ruamel.yaml.clib==0.2.6
 six==1.16.0
 social-auth-app-django==4.0.0
 social-auth-core==4.2.0
+soupsieve==2.3.2.post1
 sqlparse==0.3.1
 uritemplate==4.1.1
 urllib3==1.26.9
