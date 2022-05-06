@@ -126,7 +126,7 @@ def get_card(article):
 
 @api_view(['POST'])
 def get_parced_data(request):
-    articles = Article.objects.filter(user=request.user)
+    articles = Article.objects.select_related('user').filter(user=request.user)
     for article in articles:
         new_cart = get_card(article.article_value)
         Card.objects.create(
