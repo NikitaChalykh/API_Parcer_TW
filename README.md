@@ -1,4 +1,4 @@
-Тестовое задание REST API для системы комментариев блога
+Тестовое задание REST API для отслеживания карточек товаров Wildberries
 =====
 
 Функциональные требования:
@@ -45,9 +45,9 @@
 ----------
 1. Клонировать репозиторий и перейти в него в командной строке:
 ```bash 
-git clone 'https://github.com/NikitaChalykh/test_work.git'
+git clone 'https://github.com/NikitaChalykh/API_Parcer_TW.git'
 
-cd test_work
+cd API_Parcer_TW
 ```
 
 2. Cоздать и открыть файл ```.env``` с переменными окружения:
