@@ -10,9 +10,10 @@ router_api = routers.DefaultRouter()
 router_api.register('products', ProductViewSet)
 router_api.register(
     r'^products/(?P<vendor_code>\d+)/cards',
-    CardViewSet
+    CardViewSet,
+    basename='cards'
 )
-router_api.register('users', UserViewSet)
+router_api.register('users', UserViewSet, basename='users')
 
 
 urlpatterns = [

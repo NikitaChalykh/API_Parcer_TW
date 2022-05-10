@@ -26,7 +26,8 @@ class UserViewSet(
     @action(
         detail=False,
         methods=['GET'],
-        permission_classes=(permissions.IsAuthenticated,)
+        permission_classes=(permissions.IsAuthenticated,),
+        url_name='me'
     )
     def me(self, request):
         serializer = UserSerializer(request.user)

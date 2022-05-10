@@ -9,7 +9,7 @@ services:
       - ./.env
   
   web: 
-    build: ../test_work
+    build: ../backend
     restart: always
     volumes:
       - static_value:/app/static/
