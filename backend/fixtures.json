@@ -1,0 +1,64 @@
+[
+    {
+       "model":"cards.product",
+       "pk":1,
+       "fields":{
+          "vendor_code":11757353,
+          "user":1,
+          "date":"2022-05-10T17:37:28.133Z"
+       }
+    },
+    {
+       "model":"cards.product",
+       "pk":2,
+       "fields":{
+          "vendor_code":15877012,
+          "user":1,
+          "date":"2022-05-10T17:37:41.322Z"
+       }
+    },
+    {
+       "model":"users.customuser",
+       "pk":1,
+       "fields":{
+          "password":"pbkdf2_sha256$216000$LeQLcQT3q5QJ$TFn/pz1I+F1Gjpq/zqIh7OzHpY7ciOSXU8o4K8/BxPM=",
+          "last_login":null,
+          "is_superuser":false,
+          "username":"niko",
+          "first_name":"",
+          "last_name":"",
+          "is_staff":false,
+          "is_active":true,
+          "date_joined":"2022-05-10T17:35:33.775Z",
+          "email":"user@example.com",
+          "groups":[
+             
+          ],
+          "user_permissions":[
+             
+          ]
+       }
+    },
+    {
+       "model":"users.customuser",
+       "pk":2,
+       "fields":{
+          "password":"pbkdf2_sha256$216000$FPrq1SGWlJTZ$toNCLZtxt7W9XaaLxQ2x4pDuTS1KtngJJO+m6Sj0VDo=",
+          "last_login":null,
+          "is_superuser":true,
+          "username":"admin",
+          "first_name":"",
+          "last_name":"",
+          "is_staff":true,
+          "is_active":true,
+          "date_joined":"2022-05-10T17:38:26.143Z",
+          "email":"admin@admin.ru",
+          "groups":[
+             
+          ],
+          "user_permissions":[
+             
+          ]
+       }
+    }
+ ]
