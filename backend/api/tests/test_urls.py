@@ -5,12 +5,12 @@ from django.test import TestCase
 from django.urls import reverse
 from rest_framework.test import APIClient
 
-from cards.models import Card, Product
+from cards.models import Product
 
 User = get_user_model()
 
 
-class PostURLTests(TestCase):
+class ApiURLTests(TestCase):
     """Создаем тестовую модель артикула продукта и
     тестовую модель пользователя."""
     @classmethod
@@ -23,17 +23,7 @@ class PostURLTests(TestCase):
         )
         cls.product = Product.objects.create(
             vendor_code=11112222,
-            user=PostURLTests.user
-        )
-        cls.card = Card.objects.create(
-            vendor_code=11112222,
-            product=PostURLTests.product,
-            user=PostURLTests.user,
-            name='iphone',
-            discont_value='112',
-            value='90',
-            brand='apple',
-            supplier='apple'
+            user=ApiURLTests.user
         )
 
     def setUp(self):
@@ -59,11 +49,11 @@ class PostURLTests(TestCase):
             reverse('api:product-list'): HTTPStatus.UNAUTHORIZED,
             reverse(
                 'api:product-detail',
-                kwargs={'vendor_code': PostURLTests.product.vendor_code}
+                kwargs={'vendor_code': ApiURLTests.product.vendor_code}
             ): HTTPStatus.UNAUTHORIZED,
             (
                 '/api/products/{}/cards/'.format(
-                    PostURLTests.product.vendor_code
+                    ApiURLTests.product.vendor_code
                 )
             ): HTTPStatus.UNAUTHORIZED
         }
@@ -79,11 +69,11 @@ class PostURLTests(TestCase):
             reverse('api:product-list'): HTTPStatus.OK,
             reverse(
                 'api:product-detail',
-                kwargs={'vendor_code': PostURLTests.product.vendor_code}
+                kwargs={'vendor_code': ApiURLTests.product.vendor_code}
             ): HTTPStatus.OK,
             (
                 '/api/products/{}/cards/'.format(
-                    PostURLTests.product.vendor_code
+                    ApiURLTests.product.vendor_code
                 )
             ): HTTPStatus.OK
         }
