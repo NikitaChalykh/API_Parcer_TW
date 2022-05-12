@@ -12,7 +12,6 @@ SECRET_KEY = os.getenv('SECRET_KEY', default='(^843zle0vd&l!n(w=-j2f!_z-0@ir-krb
 
 DEBUG = False
 
-
 ALLOWED_HOSTS = ['*']
 
 
