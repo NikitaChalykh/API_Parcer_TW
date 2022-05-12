@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'cards.apps.CardsConfig',
     'users.apps.UsersConfig',
     'api.apps.ApiConfig',
+    'polls.apps.PollsConfig',
     'rest_framework',
     'django_filters',
     'drf_yasg',

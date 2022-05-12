@@ -4,7 +4,7 @@ from celery import shared_task
 
 from cards.models import Card, Product
 
-from .utils import get_card, get_supplier
+from api.utils import get_card, get_supplier
 
 logger = logging.getLogger(__name__)
 

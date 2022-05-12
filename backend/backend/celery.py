@@ -23,7 +23,7 @@ app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
     'add-every-hour-parcing': {
-        'task': 'api.tasks.get_data',
+        'task': 'polls.tasks.get_data',
         'schedule': crontab(minute='*/60')
     },
 }
