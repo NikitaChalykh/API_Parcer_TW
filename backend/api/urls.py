@@ -1,7 +1,7 @@
 from django.urls import include, path
 from rest_framework import routers
 
-from .views import CardViewSet, ProductViewSet, UserViewSet, get_parced_data
+from .views import CardViewSet, ProductViewSet, UserViewSet
 
 app_name = 'api'
 
@@ -18,6 +18,5 @@ router_api.register('users', UserViewSet, basename='users')
 
 urlpatterns = [
     path('auth/', include('djoser.urls.jwt')),
-    path('', include(router_api.urls)),
-    path('parcing/', get_parced_data)
+    path('', include(router_api.urls))
 ]

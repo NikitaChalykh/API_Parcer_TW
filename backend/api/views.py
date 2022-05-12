@@ -2,14 +2,13 @@ import logging
 
 from django.shortcuts import get_object_or_404
 from rest_framework import mixins, permissions, status, viewsets
-from rest_framework.decorators import action, api_view
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from cards.models import Card, Product, User
 
 from .filters import CardFilterBackend
 from .serializers import CardSerializer, ProductSerializer, UserSerializer
-from .utils import get_card, get_supplier
 
 logger = logging.getLogger(__name__)
 
@@ -77,28 +76,3 @@ class CardViewSet(
             product=product
         )
         return new_queryset
-
-
-@api_view(['POST'])
-def get_parced_data(request):
-    products = Product.objects.select_related('user').filter(user=request.user)
-    try:
-        for product in products:
-            new_cart = get_card(product.vendor_code)
-            supplier = get_supplier(product.vendor_code)
-            Card.objects.create(
-                **new_cart,
-                user=request.user,
-                product=product,
-                supplier=supplier
-            )
-    except Exception as error:
-        logger.error(f'Сбой при парсинге артикулов: {error}')
-        return Response(
-            'Карточки не созданы',
-            status=status.HTTP_400_BAD_REQUEST
-        )
-    return Response(
-        'Созданы карточки для отслеживаемых артикулов',
-        status=status.HTTP_201_CREATED
-    )

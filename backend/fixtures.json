@@ -3,7 +3,7 @@
        "model":"cards.product",
        "pk":1,
        "fields":{
-          "vendor_code":11757353,
+          "vendor_code":15875670,
           "user":1,
           "date":"2022-05-10T17:37:28.133Z"
        }
@@ -12,7 +12,7 @@
        "model":"cards.product",
        "pk":2,
        "fields":{
-          "vendor_code":15877012,
+          "vendor_code":15875672,
           "user":1,
           "date":"2022-05-10T17:37:41.322Z"
        }
