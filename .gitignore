@@ -131,3 +131,4 @@ dmypy.json
 /backend/static
 .DS_Store
 /.vscode
+/backend/celerybeat-schedule.db
