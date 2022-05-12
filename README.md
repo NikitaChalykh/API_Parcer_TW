@@ -78,7 +78,7 @@ echo BROKER_URL=redis://redis:6379/0 >> .env
 docker-compose up -d
 ```
 
-5. Запуск миграций, сбор статики, загрузка фикстур, запуск тестов и запуск воркера Celery:
+5. Запуск миграций, сбор статики, загрузка фикстур и запуск тестов:
 ```bash 
 docker-compose exec web python manage.py migrate
 
@@ -86,9 +86,7 @@ docker-compose exec web python manage.py collectstatic --no-input
 
 docker-compose exec web python manage.py loaddata fixtures.json
 
-docker-compose exec web python manage.py test
-
-docker-compose exec web celery -A backend worker -B -l INFO  
+docker-compose exec web python manage.py test 
 ```
 Документация к проекту
 ----------
