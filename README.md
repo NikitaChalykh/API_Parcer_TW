@@ -67,6 +67,10 @@ echo POSTGRES_USER=postgres >> .env
 echo DB_HOST=db >> .env
 
 echo DB_PORT=5432 >> .env
+
+echo BROKER=redis://redis >> .env
+
+echo BROKER_URL=redis://redis:6379/0 >> .env
 ```
 
 4. Установка и запуск приложения в контейнерах:
@@ -74,7 +78,7 @@ echo DB_PORT=5432 >> .env
 docker-compose up -d
 ```
 
-5. Запуск миграций, сбор статики, загрузка фикстур и запуск тестов:
+5. Запуск миграций, сбор статики, загрузка фикстур, запуск тестов и запуск воркера Celery:
 ```bash 
 docker-compose exec web python manage.py migrate
 
@@ -83,6 +87,8 @@ docker-compose exec web python manage.py collectstatic --no-input
 docker-compose exec web python manage.py loaddata fixtures.json
 
 docker-compose exec web python manage.py test
+
+docker-compose exec web celery -A backend worker -B -l INFO  
 ```
 Документация к проекту
 ----------
