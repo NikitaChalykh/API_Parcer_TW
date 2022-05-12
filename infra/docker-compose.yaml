@@ -28,5 +28,10 @@ services:
     depends_on:
       - web
 
+  redis:
+    image: redis:5-alpine
+    depends_on:
+      - web
+
 volumes:
   static_value:
