@@ -33,7 +33,7 @@
 * Python 3.8
 * Django 3.1
 * Django Rest Framework
-* Pytest
+* unittest
 * PostreSQL
 * Nginx
 * gunicorn
