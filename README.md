@@ -38,7 +38,7 @@
 * Nginx
 * gunicorn
 * Docker
-* Selery
+* Сelery
 * Redis
 * BeautifulSoup4
 
