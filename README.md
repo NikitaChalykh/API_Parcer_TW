@@ -1,31 +1,31 @@
-REST API for tracking Wildberries product cards
+REST API для отслеживания карточек товаров Wildberries
 =====
 
-Functional requirements
+Функциональные требования
 ----------
-* Automatic tracking of the dynamics of changes in the parameters of the product card on
-Marketplace Wildberries
-* Receipt on request of statistical
-information about the state of the card parameters in the specified range of dates from
-specified time interval (no more than 1 record per hour).
+* Автоматическое отслеживание динамики изменения параметров карточки товара на 
+маркетплейсе Wildberries 
+* Получение по запросу статистической 
+информации о состоянии параметров карточки в заданном диапазоне дат с
+заданным временным интервалом (не чаще 1 записи в час).
 
-Project Description
+Описание проекта
 ----------
-The project is deployed in the following Docker containers: web application, postgresql database, nginx server, Redis database, and Celery container.
+Проект разворачивается в следующих Docker контейнерах: web-приложение, postgresql-база данных, nginx-сервер, Redis-база данных и Celery-контейнер.
 
-Implemented authentication based on JWT tokens, configured the admin panel, implemented testing of the main models and urls of the project. Information about the historical state of product cards is filtered by date range with intervals.
+Реализована аутентификация на базе JWT-токенов, настроена админка, реализовано тестирование основных моделей и url-ов проекта. Информация об историческом состоянии карточек товаров фильтруется по диапазону дат с интервалами.
 
-The data collection task is implemented as asynchronous Celery tasks.
+Задача коллекционирования данных реализована в виде асинхронных Celery задач.
 
-Fixtures are prepared for filling the database with test data. The password and nickname of the admin in the database fixtures is ```admin```.
+Приготовлены фикстуры для заполнения БД тестовыми данными. Пароль и никнейм админа в фикстурах БД - ```admin```.
 
-System requirements
+Системные требования
 ----------
 * Python 3.6+
 * Docker
 * Works on Linux, Windows, macOS, BS
 
-Technology stack
+Стек технологий
 ----------
 * Python 3.8
 * Django 3.1
@@ -39,23 +39,23 @@ Technology stack
 * Redis
 * BeautifulSoup4
 
-Installing a project from a repository (Linux and macOS)
+Установка проекта из репозитория (Linux и macOS)
 ----------
-1. Clone the repository and go to it on the command line:
-```bash
+1. Клонировать репозиторий и перейти в него в командной строке:
+```bash 
 git clone git@github.com:NikitaChalykh/API_Parcer_TW.git
 
 cd API_Parcer_TW
 ```
 
-2. Create and open the ```.env``` file with environment variables:
-```bash
-cd infrared
+2. Cоздать и открыть файл ```.env``` с переменными окружения:
+```bash 
+cd infra
 
-touch.env
+touch .env
 ```
 
-3. Fill in the ```.env``` file with environment variables as follows:
+3. Заполнить ```.env``` файл с переменными окружения по примеру:
 ```bash 
 echo DB_ENGINE=django.db.backends.postgresql >> .env
 
@@ -74,12 +74,12 @@ echo BROKER=redis://redis >> .env
 echo BROKER_URL=redis://redis:6379/0 >> .env
 ```
 
-4. Installing and Running an Application in Containers:
+4. Установка и запуск приложения в контейнерах:
 ```bash 
 docker-compose up -d
 ```
 
-5. Running migrations, collecting statics, loading fixtures and running tests:
+5. Запуск миграций, сбор статики, загрузка фикстур и запуск тестов:
 ```bash 
 docker-compose exec web python manage.py migrate
 
@@ -89,9 +89,9 @@ docker-compose exec web python manage.py loaddata fixtures.json
 
 docker-compose exec web python manage.py test 
 ```
-Project Documentation
+Документация к проекту
 ----------
-Documentation for the API after installation is available at:
+Документация для API после установки доступна по адресу:
 
 ```http://127.0.0.1/redoc/```
 
